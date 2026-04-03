@@ -1,0 +1,27 @@
+﻿@model IEnumerable<QRCodeAttendanceSystem.Models.AttendanceRecord>
+
+@{
+    ViewData["Title"] = "Lịch sử điểm danh";
+}
+
+<h2>Lịch sử điểm danh</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tên buổi</th>
+            <th>Thời gian check-in</th>
+            <th>Trạng thái</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.AttendanceSession?.SessionName</td>
+                <td>@item.CheckInTime?.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                <td>@item.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>

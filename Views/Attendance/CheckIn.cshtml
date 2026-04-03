@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Check-in";
+}
+
+<h2>Check-in bằng mã QR</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-info">@ViewBag.Message</div>
+}
+
+<form asp-action="CheckIn" method="post">
+    <div class="mb-3">
+        <label>Nhập mã QR</label>
+        <input id="qrCodeValue" name="qrCodeValue" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Check-in</button>
+</form>
+
+<hr />
+
+<h4>Quét QR bằng camera</h4>
+<div id="reader" style="width: 350px;"></div>
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+<script>
+    function onScanSuccess(decodedText, decodedResult) {
+        document.getElementById("qrCodeValue").value = decodedText;
+    }
+
+    function onScanFailure(error) {
+    }
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader",
+        { fps: 10, qrbox: 250 },
+        false
+    );
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+</script>

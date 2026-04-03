@@ -1,0 +1,22 @@
+﻿@model QRCodeAttendanceSystem.Models.AttendanceSession
+
+@{
+    ViewData["Title"] = "Xóa buổi chấm công";
+}
+
+<h2>Xóa buổi chấm công</h2>
+
+<h4>Bạn có chắc muốn xóa buổi này không?</h4>
+
+<div>
+    <p><strong>Tên buổi:</strong> @Model.SessionName</p>
+    <p><strong>Ngày:</strong> @Model.SessionDate.ToString("dd/MM/yyyy")</p>
+    <p><strong>Bắt đầu:</strong> @Model.StartTime.ToString("dd/MM/yyyy HH:mm")</p>
+    <p><strong>Kết thúc:</strong> @Model.EndTime.ToString("dd/MM/yyyy HH:mm")</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="SessionId" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

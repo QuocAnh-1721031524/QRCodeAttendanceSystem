@@ -1,0 +1,36 @@
+﻿@model QRCodeAttendanceSystem.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<h2>Đăng nhập</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div style="color:red">@ViewBag.Error</div>
+}
+
+<form asp-action="Login" method="post">
+    <div>
+        <label>Tên đăng nhập</label>
+        <input asp-for="Username" class="form-control" />
+        <span asp-validation-for="Username" style="color:red"></span>
+    </div>
+
+    <div style="margin-top:10px;">
+        <label>Mật khẩu</label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" style="color:red"></span>
+    </div>
+
+    <div style="margin-top:15px;">
+        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

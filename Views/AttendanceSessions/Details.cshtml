@@ -1,0 +1,40 @@
+﻿@model IEnumerable<QRCodeAttendanceSystem.Models.AttendanceRecord>
+
+@{
+    ViewData["Title"] = "Chi tiết điểm danh";
+    var session = ViewBag.Session as QRCodeAttendanceSystem.Models.AttendanceSession;
+}
+
+<h2>Chi tiết điểm danh</h2>
+
+@if (session != null)
+{
+    <p><strong>Tên buổi:</strong> @session.SessionName</p>
+    <p><strong>Ngày:</strong> @session.SessionDate.ToString("dd/MM/yyyy")</p>
+    <p><strong>Bắt đầu:</strong> @session.StartTime.ToString("dd/MM/yyyy HH:mm")</p>
+    <p><strong>Kết thúc:</strong> @session.EndTime.ToString("dd/MM/yyyy HH:mm")</p>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Họ tên</th>
+            <th>Tên đăng nhập</th>
+            <th>Thời gian check-in</th>
+            <th>Trạng thái</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.User?.FullName</td>
+                <td>@item.User?.Username</td>
+                <td>@item.CheckInTime?.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                <td>@item.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">Quay lại</a>

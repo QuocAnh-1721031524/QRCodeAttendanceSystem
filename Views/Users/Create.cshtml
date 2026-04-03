@@ -1,0 +1,72 @@
+﻿@model QRCodeAttendanceSystem.Models.User
+@using QRCodeAttendanceSystem.Models
+
+@{
+    ViewData["Title"] = "Thêm người dùng";
+    var roles = ViewBag.Roles as List<Role>;
+    var classes = ViewBag.Classes as List<Class>;
+}
+
+<h2>Thêm người dùng</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label>Họ tên</label>
+        <input asp-for="FullName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Tên đăng nhập</label>
+        <input asp-for="Username" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Mật khẩu</label>
+        <input asp-for="PasswordHash" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Mã sinh viên / nhân viên</label>
+        <input asp-for="StudentCode" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Vai trò</label>
+        <select asp-for="RoleId" class="form-control">
+            @if (roles != null)
+            {
+                @foreach (var role in roles)
+                {
+                    <option value="@role.RoleId">@role.RoleName</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Lớp</label>
+        <select asp-for="ClassId" class="form-control">
+            <option value="">-- Chọn lớp --</option>
+            @if (classes != null)
+            {
+                @foreach (var cls in classes)
+                {
+                    <option value="@cls.ClassId">@cls.ClassName</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Hoạt động</label>
+        <input asp-for="IsActive" type="checkbox" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>

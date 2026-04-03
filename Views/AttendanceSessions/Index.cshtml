@@ -1,0 +1,57 @@
+﻿@model IEnumerable<QRCodeAttendanceSystem.Models.AttendanceSession>
+
+@{
+    ViewData["Title"] = "Danh sách buổi chấm công";
+}
+
+<h2>Danh sách buổi chấm công</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Thêm buổi mới</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Tên buổi</th>
+            <th>Ngày</th>
+            <th>Bắt đầu</th>
+            <th>Kết thúc</th>
+            <th>Ngưỡng trễ</th>
+            <th>QR Code</th>
+            <th>Người tạo</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.SessionName</td>
+                <td>@item.SessionDate.ToString("dd/MM/yyyy")</td>
+                <td>@item.StartTime.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@item.EndTime.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@item.LateThreshold phút</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.QRCodeValue))
+                    {
+                        <div style="text-align:center">
+                            <img src="@Url.Action("GenerateQRCode", "AttendanceSessions", new { value = item.QRCodeValue })"
+                                 width="100"
+                                 height="100" />
+                            <div style="max-width:120px; word-break:break-all; font-size:11px; margin-top:5px;">
+                                @item.QRCodeValue
+                            </div>
+                        </div>
+                    }
+                </td>
+                <td>@item.CreatedByUser?.FullName</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.SessionId" class="btn btn-info btn-sm">Chi tiết</a>
+                    <a asp-action="Edit" asp-route-id="@item.SessionId" class="btn btn-warning btn-sm">Sửa</a>
+                    <a asp-action="Delete" asp-route-id="@item.SessionId" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

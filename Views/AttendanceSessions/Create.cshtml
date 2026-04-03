@@ -1,0 +1,37 @@
+﻿@model QRCodeAttendanceSystem.Models.AttendanceSession
+
+@{
+    ViewData["Title"] = "Thêm buổi chấm công";
+}
+
+<h2>Thêm buổi chấm công</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label>Tên buổi</label>
+        <input asp-for="SessionName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Ngày diễn ra</label>
+        <input asp-for="SessionDate" type="date" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Thời gian bắt đầu</label>
+        <input asp-for="StartTime" type="datetime-local" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Thời gian kết thúc</label>
+        <input asp-for="EndTime" type="datetime-local" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Ngưỡng trễ (phút)</label>
+        <input asp-for="LateThreshold" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
